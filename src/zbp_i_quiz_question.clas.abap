@@ -1,0 +1,7 @@
+CLASS zbp_i_quiz_question DEFINITION PUBLIC ABSTRACT FINAL FOR BEHAVIOR OF zi_quiz.
+ENDCLASS.
+
+CLASS zbp_i_quiz_question IMPLEMENTATION.
+ENDCLASS.
+
+

@@ -1,0 +1,52 @@
+@Metadata.layer: #CORE
+@UI: {
+  headerInfo: { 
+    typeName: 'Question', 
+    typeNamePlural: 'Questions', 
+    title: { type: #STANDARD, value: 'QuestionText' } 
+  }
+}
+annotate view ZC_Questions with
+{
+  /* ---> THIS IS THE MISSING PIECE <--- */
+  @UI.facet: [
+    { 
+      id: 'QuestionDetails', 
+      purpose: #STANDARD,
+      type: #IDENTIFICATION_REFERENCE, 
+      label: 'Question Info', 
+      position: 10 
+    }
+  ]
+
+  @UI.hidden: true
+  QuestionId;
+
+  @UI.hidden: true
+  QuizId;
+
+  @UI.lineItem:       [{ position: 10, label: 'Question Text' }]
+  @UI.identification: [{ position: 10, label: 'Question Text' }]
+  QuestionText;
+
+  @UI.lineItem:       [{ position: 20, label: 'Your Answer' }]
+  @UI.identification: [{ position: 20, label: 'Your Answer' }]
+  UserAnswer;
+
+  @UI.lineItem:       [{ position: 30, label: 'Correct Answer' }]
+  @UI.identification: [{ position: 30, label: 'Correct Answer' }]
+  CorrectAnswer;
+
+  @UI.lineItem:       [{ position: 40, label: 'Status',
+                         criticality: 'StatusCriticality',
+                         criticalityRepresentation: #WITH_ICON }]
+  @UI.identification: [{ position: 40, label: 'Status' }]
+  Status;
+
+  @UI.hidden: true
+  StatusCriticality;
+
+  @UI.lineItem:       [{ position: 50, label: 'Score' }]
+  @UI.identification: [{ position: 50, label: 'Score' }]
+  Weightage;
+}

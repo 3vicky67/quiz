@@ -1,0 +1,61 @@
+@Metadata.layer: #CORE
+
+@UI: {
+  headerInfo: {
+    typeName:       'Quiz',
+    typeNamePlural: 'Quizzes',
+    title:          { type: #STANDARD, value: 'Title' },
+    description:    { type: #STANDARD, value: 'ParticipantName' }
+  }
+}
+
+
+annotate view ZC_Quiz with
+{
+  @UI.facet: [
+    {
+      id:       'QuizOverview',
+      purpose:  #STANDARD,
+      type:     #IDENTIFICATION_REFERENCE,
+      label:    'Quiz Overview',
+      position: 10
+    },
+    {
+      id:            'QuestionsList',
+      purpose:       #STANDARD,
+      type:          #LINEITEM_REFERENCE,
+      label:         'Questions List',
+      position:      20,
+      targetElement: '_Questions'
+    }
+  ]
+
+  @UI.hidden: true
+  QuizId;
+
+  @UI.lineItem:       [{ position: 10, label: 'Participant Name' }]
+  @UI.identification: [{ position: 10, label: 'Participant Name' }]
+  @UI.selectionField: [{ position: 10 }]
+  ParticipantName;
+
+  @UI.lineItem:       [{ position: 20, label: 'Title' }]
+  @UI.identification: [{ position: 20, label: 'Title' }]
+  Title;
+
+  @UI.lineItem:       [{ position: 30, label: 'Quiz Difficulty',
+                         criticality: 'DifficultyCriticality',
+                         criticalityRepresentation: #WITH_ICON }]
+  @UI.identification: [{ position: 30, label: 'Quiz Difficulty' }]
+  Difficulty;
+
+  @UI.lineItem:       [{ position: 40, label: 'Total Score' }]
+  @UI.identification: [{ position: 40, label: 'Total Score' }]
+  TotalMarks;
+  
+
+  @UI.hidden: true
+  DifficultyCriticality;
+
+  @UI.hidden: true
+  LastChangedAt;             
+}

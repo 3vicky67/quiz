@@ -1,0 +1,65 @@
+unmanaged implementation in class zbp_i_quiz_header unique;
+strict ( 2 );
+with draft;
+
+define behavior for ZI_Quiz alias Quiz
+lock master
+total etag LastChangedAt
+authorization master ( instance )
+draft table zquiz_header_d
+{
+  create;
+  update;
+  delete;
+
+  draft action Edit;
+  draft action Activate optimized;
+  draft action Discard;
+  draft action Resume;
+  draft determine action Prepare;
+
+  association _Questions { create; with draft; }
+
+  field ( readonly, numbering : managed ) QuizId;
+
+  // Explicitly ensure TotalMarks is editable
+  field ( mandatory ) TotalMarks;
+
+  mapping for zquiz_header
+  {
+    QuizId          = quiz_id;
+    ParticipantName = participant_name;
+    Title           = title;
+    Difficulty      = difficulty;
+    TotalMarks      = total_marks;
+    LastChangedAt   = last_changed_at;
+  }
+}
+
+define behavior for ZI_Questions alias Question
+implementation in class zbp_i_quiz_question unique
+lock dependent by _Quiz
+authorization master ( global )
+draft table zquiz_quest_d
+{
+  update;
+  delete;
+
+  field ( readonly ) QuizId;
+  field ( readonly, numbering : managed ) QuestionId;
+  determination calculateScore on modify { field UserAnswer, CorrectAnswer; }
+
+  association _Quiz { with draft; }
+
+  mapping for zquiz_questions
+  {
+    QuestionId        = question_id;
+    QuizId            = quiz_id;
+    QuestionText      = question_text;
+    UserAnswer        = user_answer;
+    CorrectAnswer     = correct_answer;
+    Status            = status;
+    StatusCriticality = criticality;
+    Weightage         = weightage;
+  }
+}

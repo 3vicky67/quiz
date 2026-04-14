@@ -1,0 +1,5 @@
+@EndUserText.label: 'Service definition for Quiz App'
+define service ZUI_QUIZ_SRV {
+  expose ZC_Quiz      as Quiz;
+  expose ZC_Questions as Question;
+}
